@@ -1,0 +1,367 @@
+/* ═══════════════════════════════════════════════════════════════
+   CandlestickChart.css — NexusWallet Chart Modal
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Overlay ── */
+.chart-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(7, 11, 20, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: chart-fade-in 0.2s ease;
+}
+@keyframes chart-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Modal box ── */
+.chart-modal {
+  background: #0d1526;
+  border: 1px solid rgba(99, 160, 255, 0.2);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 40px 80px rgba(0, 0, 0, 0.7),
+    0 0 60px rgba(59, 130, 246, 0.06);
+  animation: chart-slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+.chart-modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent);
+  border-radius: 20px 20px 0 0;
+}
+@keyframes chart-slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Header ── */
+.chart-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 12px;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px solid rgba(99, 160, 255, 0.08);
+}
+
+.chart-modal__title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.chart-modal__symbol {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.chart-modal__name {
+  font-size: 13px;
+  color: #64748b;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.chart-modal__price {
+  font-family: 'DM Mono', monospace;
+  font-size: 16px;
+  font-weight: 600;
+  color: #e2eaff;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  padding: 3px 10px;
+  border-radius: 8px;
+}
+
+.chart-modal__change {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 8px;
+}
+.chart-modal__change--up {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  color: #4ade80;
+}
+.chart-modal__change--down {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #f87171;
+}
+
+.chart-modal__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ── Interval bar ── */
+.chart-interval-bar {
+  display: flex;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(99, 160, 255, 0.1);
+  border-radius: 10px;
+  padding: 3px;
+  gap: 2px;
+}
+.chart-interval-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 7px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+.chart-interval-btn:hover {
+  color: #e2eaff;
+  background: rgba(255, 255, 255, 0.06);
+}
+.chart-interval-btn--active {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* ── Close button ── */
+.chart-modal__close {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: 1px solid rgba(99, 160, 255, 0.15);
+  background: transparent;
+  color: #64748b;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.chart-modal__close:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #f87171;
+}
+
+/* ── Pair label ── */
+.chart-modal__pair {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 24px;
+  background: rgba(59, 130, 246, 0.04);
+  border-bottom: 1px solid rgba(99, 160, 255, 0.06);
+}
+.chart-pair-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.chart-pair-source {
+  font-size: 11px;
+  color: #64748b;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Chart body ── */
+.chart-modal__body {
+  flex: 1;
+  position: relative;
+  min-height: 300px;
+  height: 380px;
+  padding: 12px 8px 0;
+}
+
+.chart-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Loading state */
+.chart-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #64748b;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  z-index: 2;
+}
+.chart-loading__spinner {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid rgba(99, 160, 255, 0.1);
+  border-top-color: #3b82f6;
+  animation: chart-spin 0.8s linear infinite;
+}
+@keyframes chart-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error state */
+.chart-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #64748b;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  z-index: 2;
+}
+.chart-error__icon {
+  font-size: 32px;
+}
+.chart-retry-btn {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: rgba(59, 130, 246, 0.08);
+  color: #3b82f6;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Syne', sans-serif;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.chart-retry-btn:hover {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+/* ── Footer ── */
+.chart-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px 14px;
+  border-top: 1px solid rgba(99, 160, 255, 0.06);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chart-footer-note {
+  font-size: 11px;
+  color: #64748b;
+  font-family: 'DM Sans', sans-serif;
+}
+.chart-binance-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: #3b82f6;
+  font-family: 'Syne', sans-serif;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.chart-binance-link:hover {
+  color: #60a5fa;
+}
+
+/* ── Chart button on token row ── */
+.token-chart-btn {
+  flex-shrink: 0;
+  padding: 5px 11px;
+  border-radius: 8px;
+  border: 1px solid rgba(99, 160, 255, 0.2);
+  background: rgba(59, 130, 246, 0.06);
+  color: #3b82f6;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.token-chart-btn:hover {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 3px 12px rgba(59, 130, 246, 0.35);
+  transform: translateY(-1px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .chart-modal {
+    border-radius: 16px;
+    max-height: 95vh;
+  }
+  .chart-modal__header {
+    padding: 14px 16px 10px;
+    gap: 10px;
+  }
+  .chart-modal__symbol {
+    font-size: 18px;
+  }
+  .chart-modal__price {
+    font-size: 14px;
+  }
+  .chart-modal__body {
+    height: 280px;
+    min-height: 240px;
+    padding: 8px 4px 0;
+  }
+  .chart-modal__pair {
+    padding: 6px 16px;
+  }
+  .chart-modal__footer {
+    padding: 8px 16px 12px;
+  }
+  .chart-footer-note {
+    font-size: 10px;
+  }
+  .chart-interval-btn {
+    padding: 4px 7px;
+    font-size: 11px;
+  }
+  .chart-modal__controls {
+    gap: 8px;
+    width: 100%;
+    justify-content: space-between;
+  }
+}

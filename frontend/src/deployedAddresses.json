@@ -1,0 +1,13 @@
+{
+  "11155111": {
+    "network": "sepolia",
+    "chainId": 11155111,
+    "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "deployedAt": "2026-03-14T10:15:00.000Z"
+  },
+  "undefined": {
+    "network": "localhost",
+    "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "deployedAt": "2026-03-14T07:07:22.635Z"
+  }
+}
