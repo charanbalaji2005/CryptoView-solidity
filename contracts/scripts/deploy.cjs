@@ -53,4 +53,4 @@ function saveAddresses(data) {
 main().catch((err) => {
   console.error("❌ Deployment failed:", err);
   process.exitCode = 1;
-});
+});cd 

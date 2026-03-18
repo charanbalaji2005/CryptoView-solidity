@@ -1,12 +1,18 @@
 // frontend/src/networks.js
-// Each network has: chainId (hex), RPC, native coin, known ERC-20 token addresses
+// Fixed: better public RPCs, fallback URLs, timeout handling
 
 export const networks = [
+  // ── ETHEREUM MAINNET ──────────────────────────────────────────
   {
     chainId:      "0x1",
     chainIdDec:   1,
     chainName:    "Ethereum Mainnet",
-    rpcUrls:      ["https://eth-mainnet.g.alchemy.com/v2/xtHt__dzogV-vUtZ9wTDr"],
+    rpcUrls: [
+      "https://eth.llamarpc.com",
+      "https://rpc.ankr.com/eth",
+      "https://cloudflare-eth.com",
+      "https://ethereum.publicnode.com",
+    ],
     blockExplorerUrls: ["https://etherscan.io"],
     nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
     tokens: [
@@ -23,42 +29,47 @@ export const networks = [
       { address: "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2", symbol: "MKR",   name: "Maker" },
       { address: "0xD533a949740bb3306d119CC777fa900bA034cd52", symbol: "CRV",   name: "Curve DAO" },
       { address: "0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32", symbol: "LDO",   name: "Lido DAO" },
-      { address: "0x4d224452801ACEd8B2F0aebE155379bb5D594381", symbol: "APE",   name: "ApeCoin" },
-      { address: "0x0D8775F648430679A709E98d2b0Cb6250d2887EF", symbol: "BAT",   name: "Basic Attention" },
     ],
   },
-  // ── TESTNET ──────────────────────────────────────────────────────────────────
+
+  // ── SEPOLIA TESTNET ───────────────────────────────────────────
   {
     chainId:      "0xaa36a7",
     chainIdDec:   11155111,
     chainName:    "Sepolia Testnet",
-    rpcUrls:      [
+    rpcUrls: [
+      "https://rpc.ankr.com/eth_sepolia",
+      "https://sepolia.drpc.org",
+      "https://ethereum-sepolia-rpc.publicnode.com",
       "https://rpc.sepolia.org",
-      "https://rpc.sepolia.org",
-      "https://ethereum-sepolia.publicnode.com",
-      "https://rpc2.sepolia.org"
     ],
     blockExplorerUrls: ["https://sepolia.etherscan.io"],
     nativeCurrency: { name: "Sepolia Ether", symbol: "ETH", decimals: 18 },
-    isTestnet:    true,
+    isTestnet: true,
     faucetUrls: [
       "https://sepoliafaucet.com",
       "https://www.alchemy.com/faucets/ethereum-sepolia",
-      "https://cloud.google.com/application/web3/faucet/ethereum/sepolia",
-      "https://faucet.quicknode.com/ethereum/sepolia"
     ],
     tokens: [
-      { address: "0x7169D38820dfd117C3FA1f22a697dBA58d90BA06", symbol: "USDT",  name: "Tether USD (Testnet)" },
-      { address: "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8", symbol: "USDC",  name: "USD Coin (Testnet)" },
-      { address: "0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357", symbol: "DAI",   name: "Dai (Testnet)" },
-      { address: "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14", symbol: "WETH",  name: "Wrapped ETH (Testnet)" },
+      // Only tokens with real balance-checking ability on Sepolia
+      { address: "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14", symbol: "WETH",  name: "Wrapped ETH" },
+      { address: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238", symbol: "USDC",  name: "USD Coin (test)" },
+      { address: "0x779877A7B0D9E8603169DdbD7836e478b4624789", symbol: "LINK",  name: "Chainlink (test)" },
+      { address: "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984", symbol: "UNI",   name: "Uniswap (test)" },
     ],
   },
+
+  // ── POLYGON ───────────────────────────────────────────────────
   {
     chainId:      "0x89",
     chainIdDec:   137,
     chainName:    "Polygon",
-    rpcUrls:      ["https://polygon-rpc.com"],
+    rpcUrls: [
+      "https://polygon.llamarpc.com",
+      "https://rpc.ankr.com/polygon",
+      "https://polygon-bor-rpc.publicnode.com",
+      "https://polygon-rpc.com",
+    ],
     blockExplorerUrls: ["https://polygonscan.com"],
     nativeCurrency: { name: "MATIC", symbol: "MATIC", decimals: 18 },
     tokens: [
@@ -72,11 +83,18 @@ export const networks = [
       { address: "0xD6DF932A45C0f255f85145f286eA0b292B21C90B", symbol: "AAVE",  name: "Aave" },
     ],
   },
+
+  // ── BNB SMART CHAIN ───────────────────────────────────────────
   {
     chainId:      "0x38",
     chainIdDec:   56,
     chainName:    "BNB Smart Chain",
-    rpcUrls:      ["https://bsc-dataseed.binance.org"],
+    rpcUrls: [
+      "https://bsc.llamarpc.com",
+      "https://rpc.ankr.com/bsc",
+      "https://bsc-rpc.publicnode.com",
+      "https://bsc-dataseed1.binance.org",
+    ],
     blockExplorerUrls: ["https://bscscan.com"],
     nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
     tokens: [
@@ -90,11 +108,18 @@ export const networks = [
       { address: "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82", symbol: "CAKE",  name: "PancakeSwap" },
     ],
   },
+
+  // ── ARBITRUM ONE ──────────────────────────────────────────────
   {
     chainId:      "0xa4b1",
     chainIdDec:   42161,
     chainName:    "Arbitrum One",
-    rpcUrls:      ["https://arb1.arbitrum.io/rpc"],
+    rpcUrls: [
+      "https://arbitrum.llamarpc.com",
+      "https://rpc.ankr.com/arbitrum",
+      "https://arbitrum-one-rpc.publicnode.com",
+      "https://arb1.arbitrum.io/rpc",
+    ],
     blockExplorerUrls: ["https://arbiscan.io"],
     nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
     tokens: [
@@ -107,11 +132,18 @@ export const networks = [
       { address: "0xFa7F8980b0f1E64A2062791cc3b0871572f1F7f0", symbol: "UNI",   name: "Uniswap" },
     ],
   },
+
+  // ── OPTIMISM ──────────────────────────────────────────────────
   {
     chainId:      "0xa",
     chainIdDec:   10,
     chainName:    "Optimism",
-    rpcUrls:      ["https://mainnet.optimism.io"],
+    rpcUrls: [
+      "https://optimism.llamarpc.com",
+      "https://rpc.ankr.com/optimism",
+      "https://optimism-rpc.publicnode.com",
+      "https://mainnet.optimism.io",
+    ],
     blockExplorerUrls: ["https://optimistic.etherscan.io"],
     nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
     tokens: [
@@ -123,11 +155,18 @@ export const networks = [
       { address: "0x350a791Bfc2C21F9Ed5d10980Dad2e2638ffa7f6", symbol: "LINK",  name: "Chainlink" },
     ],
   },
+
+  // ── BASE ──────────────────────────────────────────────────────
   {
     chainId:      "0x2105",
     chainIdDec:   8453,
     chainName:    "Base",
-    rpcUrls:      ["https://mainnet.base.org"],
+    rpcUrls: [
+      "https://base.llamarpc.com",
+      "https://rpc.ankr.com/base",
+      "https://base-rpc.publicnode.com",
+      "https://mainnet.base.org",
+    ],
     blockExplorerUrls: ["https://basescan.org"],
     nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
     tokens: [
@@ -137,11 +176,18 @@ export const networks = [
       { address: "0x4200000000000000000000000000000000000006", symbol: "WETH",  name: "Wrapped ETH" },
     ],
   },
+
+  // ── AVALANCHE ─────────────────────────────────────────────────
   {
     chainId:      "0xa86a",
     chainIdDec:   43114,
     chainName:    "Avalanche",
-    rpcUrls:      ["https://api.avax.network/ext/bc/C/rpc"],
+    rpcUrls: [
+      "https://avalanche.llamarpc.com",
+      "https://rpc.ankr.com/avalanche",
+      "https://avalanche-c-chain-rpc.publicnode.com",
+      "https://api.avax.network/ext/bc/C/rpc",
+    ],
     blockExplorerUrls: ["https://snowtrace.io"],
     nativeCurrency: { name: "Avalanche", symbol: "AVAX", decimals: 18 },
     tokens: [
@@ -151,11 +197,18 @@ export const networks = [
       { address: "0x50b7545627a5162F82A992c33b87aDc75187B218", symbol: "WBTC",  name: "Wrapped BTC" },
     ],
   },
+
+  // ── FANTOM ────────────────────────────────────────────────────
   {
     chainId:      "0xfa",
     chainIdDec:   250,
     chainName:    "Fantom Opera",
-    rpcUrls:      ["https://rpc.ftm.tools"],
+    rpcUrls: [
+      "https://rpc.ankr.com/fantom",
+      "https://fantom-rpc.publicnode.com",
+      "https://rpcapi.fantom.network",
+      "https://rpc.ftm.tools",
+    ],
     blockExplorerUrls: ["https://ftmscan.com"],
     nativeCurrency: { name: "Fantom", symbol: "FTM", decimals: 18 },
     tokens: [
@@ -164,12 +217,17 @@ export const networks = [
       { address: "0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E", symbol: "DAI",   name: "Dai" },
     ],
   },
-  // ── NEW NETWORKS ─────────────────────────────────────────────────────────────
+
+  // ── ZKSYNC ERA ────────────────────────────────────────────────
   {
     chainId:      "0x144",
     chainIdDec:   324,
     chainName:    "zkSync Era",
-    rpcUrls:      ["https://mainnet.era.zksync.io"],
+    rpcUrls: [
+      "https://mainnet.era.zksync.io",
+      "https://zksync.llamarpc.com",
+      "https://zksync-era-rpc.publicnode.com",
+    ],
     blockExplorerUrls: ["https://explorer.zksync.io"],
     nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
     tokens: [
@@ -178,11 +236,17 @@ export const networks = [
       { address: "0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91", symbol: "WETH",  name: "Wrapped ETH" },
     ],
   },
+
+  // ── MANTLE ────────────────────────────────────────────────────
   {
     chainId:      "0x1388",
     chainIdDec:   5000,
     chainName:    "Mantle",
-    rpcUrls:      ["https://rpc.mantle.xyz"],
+    rpcUrls: [
+      "https://rpc.mantle.xyz",
+      "https://mantle-rpc.publicnode.com",
+      "https://rpc.ankr.com/mantle",
+    ],
     blockExplorerUrls: ["https://explorer.mantle.xyz"],
     nativeCurrency: { name: "Mantle", symbol: "MNT", decimals: 18 },
     tokens: [
@@ -191,11 +255,17 @@ export const networks = [
       { address: "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111", symbol: "WETH",  name: "Wrapped ETH" },
     ],
   },
+
+  // ── BLAST ─────────────────────────────────────────────────────
   {
     chainId:      "0x13e31",
     chainIdDec:   81457,
     chainName:    "Blast",
-    rpcUrls:      ["https://rpc.blast.io"],
+    rpcUrls: [
+      "https://rpc.blast.io",
+      "https://blast.llamarpc.com",
+      "https://blast-rpc.publicnode.com",
+    ],
     blockExplorerUrls: ["https://blastscan.io"],
     nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
     tokens: [
@@ -203,11 +273,17 @@ export const networks = [
       { address: "0x4300000000000000000000000000000000000004", symbol: "WETH",  name: "Wrapped ETH" },
     ],
   },
+
+  // ── PULSECHAIN ────────────────────────────────────────────────
   {
     chainId:      "0x171",
     chainIdDec:   369,
     chainName:    "PulseChain",
-    rpcUrls:      ["https://rpc.pulsechain.com"],
+    rpcUrls: [
+      "https://rpc.pulsechain.com",
+      "https://pulsechain-rpc.publicnode.com",
+      "https://rpc-pulsechain.g4mm4.io",
+    ],
     blockExplorerUrls: ["https://scan.pulsechain.com"],
     nativeCurrency: { name: "Pulse", symbol: "PLS", decimals: 18 },
     tokens: [
@@ -215,6 +291,8 @@ export const networks = [
       { address: "0x02DcdD04e3F455D838cd1249292C58f3B79e3C3C", symbol: "WETH",  name: "Wrapped ETH" },
     ],
   },
+
+  // ── LISK ──────────────────────────────────────────────────────
   {
     chainId:      "0x46f",
     chainIdDec:   1135,
@@ -224,74 +302,74 @@ export const networks = [
     nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
     tokens: [],
   },
+
+  // ── ZETACHAIN ─────────────────────────────────────────────────
   {
     chainId:      "0x1b58",
     chainIdDec:   7000,
     chainName:    "ZetaChain",
-    rpcUrls:      ["https://zetachain-evm.blockpi.network/v1/rpc/public"],
+    rpcUrls: [
+      "https://zetachain-evm.blockpi.network/v1/rpc/public",
+      "https://zetachain-mainnet-archive.allthatnode.com:8545",
+    ],
     blockExplorerUrls: ["https://explorer.zetachain.com"],
     nativeCurrency: { name: "Zeta", symbol: "ZETA", decimals: 18 },
     tokens: [],
   },
-  // ── NON-EVM (MetaMask Snaps / info-only, marked as non-evm) ─────────────────
+
+  // ── NON-EVM ───────────────────────────────────────────────────
   {
-    chainId:      "solana:mainnet",
-    chainIdDec:   "solana",
-    chainName:    "Solana",
-    rpcUrls:      ["https://api.mainnet-beta.solana.com"],
+    chainId:    "solana:mainnet",
+    chainIdDec: "solana",
+    chainName:  "Solana",
+    rpcUrls:    ["https://api.mainnet-beta.solana.com"],
     blockExplorerUrls: ["https://solscan.io"],
     nativeCurrency: { name: "Solana", symbol: "SOL", decimals: 9 },
-    nonEvm:       true,
-    snapId:       "npm:@solflare-wallet/solana-snap",
+    nonEvm: true,
     tokens: [],
   },
   {
-    chainId:      "bip122:000000000019d6689c085ae165831e93",
-    chainIdDec:   "bitcoin",
-    chainName:    "Bitcoin",
-    rpcUrls:      ["https://blockstream.info/api"],
+    chainId:    "bip122:000000000019d6689c085ae165831e93",
+    chainIdDec: "bitcoin",
+    chainName:  "Bitcoin",
+    rpcUrls:    ["https://blockstream.info/api"],
     blockExplorerUrls: ["https://mempool.space"],
     nativeCurrency: { name: "Bitcoin", symbol: "BTC", decimals: 8 },
-    nonEvm:       true,
-    snapId:       "npm:@metamask/bitcoin-snap",
+    nonEvm: true,
     tokens: [],
   },
   {
-    chainId:      "cosmos:cosmoshub-4",
-    chainIdDec:   "cosmos",
-    chainName:    "Cosmos Hub",
-    rpcUrls:      ["https://cosmos-rpc.publicnode.com"],
+    chainId:    "cosmos:cosmoshub-4",
+    chainIdDec: "cosmos",
+    chainName:  "Cosmos Hub",
+    rpcUrls:    ["https://cosmos-rpc.publicnode.com"],
     blockExplorerUrls: ["https://www.mintscan.io/cosmos"],
     nativeCurrency: { name: "Atom", symbol: "ATOM", decimals: 6 },
-    nonEvm:       true,
-    snapId:       "npm:@cosmsnap/snap",
+    nonEvm: true,
     tokens: [],
   },
   {
-    chainId:      "near:mainnet",
-    chainIdDec:   "near",
-    chainName:    "NEAR Protocol",
-    rpcUrls:      ["https://rpc.mainnet.near.org"],
+    chainId:    "near:mainnet",
+    chainIdDec: "near",
+    chainName:  "NEAR Protocol",
+    rpcUrls:    ["https://rpc.mainnet.near.org"],
     blockExplorerUrls: ["https://nearblocks.io"],
     nativeCurrency: { name: "NEAR", symbol: "NEAR", decimals: 24 },
-    nonEvm:       true,
-    snapId:       "npm:@near/snap",
+    nonEvm: true,
     tokens: [],
   },
   {
-    chainId:      "polkadot:91b171bb158e2d3848fa23a9f1c25182",
-    chainIdDec:   "polkadot",
-    chainName:    "Polkadot",
-    rpcUrls:      ["wss://rpc.polkadot.io"],
+    chainId:    "polkadot:91b171bb158e2d3848fa23a9f1c25182",
+    chainIdDec: "polkadot",
+    chainName:  "Polkadot",
+    rpcUrls:    ["wss://rpc.polkadot.io"],
     blockExplorerUrls: ["https://polkadot.subscan.io"],
     nativeCurrency: { name: "DOT", symbol: "DOT", decimals: 10 },
-    nonEvm:       true,
-    snapId:       "npm:@chainsafe/polkadot-snap",
+    nonEvm: true,
     tokens: [],
   },
 ];
 
-// Helper: get network config by chainId (hex string e.g. "0x1")
 export function getNetworkByChainId(chainIdHex) {
   return networks.find(
     (n) => n.chainId.toLowerCase() === chainIdHex?.toLowerCase()

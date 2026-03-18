@@ -9,7 +9,10 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "ethers": "^6.10.0",
+    "@walletconnect/ethereum-provider": "^2.23.8",
+    "@walletconnect/modal": "^2.7.0",
+    "build": "^0.1.4",
+    "ethers": "^6.16.0",
     "lightweight-charts": "^5.1.0",
     "lucide-react": "^0.577.0",
     "react": "^18.2.0",
